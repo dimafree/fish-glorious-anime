@@ -5,28 +5,30 @@ import { Icon2 } from "./icons/Icon2";
 import {Games} from "../common/Config";
 import {gsap} from "gsap";
 
-//let gameswidth;
-//let gameseventdata:any;
-let gamesoffset:{x:number, y:number};
-let gamesdragging:boolean = false;
 let max_left:number = 0;
+let width_mask:number = 1520;
 
 export class HubIcons extends PIXI.Sprite{
 	cont:PIXI.Sprite;
+	total_width_cont:number = 0;
 	headcont:PIXI.Sprite;
+	msk:PIXI.Graphics;
 
 	constructor() {
 		super();
 		//
 		this.updateHub = this.updateHub.bind(this);
+		this.onResize = this.onResize.bind(this);
+		EE.addListener("RESIZE", this.onResize);
 		//
 		this.headcont = this.addChild(new PIXI.Sprite());
 		this.headcont.x = 400;
 		this.cont = this.headcont.addChild(new PIXI.Sprite());
 		this.cont.interactive = true;
+		(this.cont as any).dragging = false;
 		this.cont
 			.on('mousedown', this.onDragStart)
-			.on('touchstart', this.onDragStart)
+			.on('touchstart', this.onTouchStart)
 			// events for drag end
 			.on('mouseup', this.onDragEnd)
 			.on('mouseupoutside', this.onDragEnd)
@@ -34,28 +36,46 @@ export class HubIcons extends PIXI.Sprite{
 			.on('touchendoutside', this.onDragEnd)
 			// events for drag move
 			.on('mousemove', this.onDragMove)
-			.on('touchmove', this.onDragMove);
+			.on('touchmove', this.onTouchMove);
 
-		this.cont.mask = this.headcont.addChild(new PIXI.Graphics()).beginFill(0x0000ff, 1).drawRect(0,-10,1520,720).endFill();
-
+		//this.cont.mask = this.headcont.addChild(new PIXI.Graphics()).beginFill(0x0000ff, 1).drawRect(0,-10,1520,720).endFill();
+		this.msk = this.headcont.addChild(new PIXI.Graphics()).beginFill(0x0000ff, 1).drawRect(0,-10,1520,720).endFill();
+		this.cont.mask = this.msk;
 		EE.addListener(UPDATE_BIG_BUTTONS, this.updateHub);
+	}
+
+	onResize(data:any) {
+		this.cont.x = 0;
+		//width_mask = (data.w/data.scale) - 400;
+		this.msk.width = (data.w/data.scale) - 400;
+		//max_left = (this.cont.getBounds().width)*-1;
 	}
 
 	onDragStart(e:any)
 	{
-		gsap.killTweensOf(this);
-		gamesoffset = { x: this.x - e.data.originalEvent.pageX, y: 0 };
-		gamesdragging = true;
+		(this as any).data = e.data;
+		(this as any).dragging = true;
+		(this as any).offset = { x: this.position.x - e.data.originalEvent.pageX, y: this.y - e.data.originalEvent.pageY };
+	}
+
+	onTouchStart(e:any)
+	{
+		(this as any).data = e.data;
+		(this as any).dragging = true;
+		const startcoord = (this as any).data.getLocalPosition(this.parent);
+		(this as any).offset = { x: this.position.x - startcoord.x, y: 0 };
 	}
 
 	onDragEnd()
 	{
-		gamesdragging = false;
-		const curx = this.x;
+		(this as any).dragging = false;
+		(this as any).data = null;
+		//
+		const curx = this.position.x;
 		let endx = curx - curx%390;
 		if(curx>0) endx = 0;
 		if(endx<max_left) endx = max_left - max_left%390;
-		gsap.to(this, {
+		gsap.to(this.position, {
 			duration: 0.5,
 			x: endx
 		});
@@ -63,9 +83,20 @@ export class HubIcons extends PIXI.Sprite{
 
 	onDragMove(e:any)
 	{
-		if (gamesdragging) {
-			this.y = 0;
-			this.x = e.data.originalEvent.pageX + gamesoffset.x;
+		if ((this as any).dragging)
+		{
+			this.position.x = e.data.originalEvent.pageX + (this as any).offset.x;
+			this.position.y = 0;
+		}
+	}
+
+	onTouchMove()
+	{
+		if ((this as any).dragging)
+		{
+			const newPosition = (this as any).data.getLocalPosition(this.parent);
+			this.position.x = newPosition.x + (this as any).offset.x;
+			this.position.y = 0;
 		}
 	}
 
@@ -113,8 +144,9 @@ export class HubIcons extends PIXI.Sprite{
 				this.cont.addChild(item);
 			}
 		}
-		if(xx > 1520) {
-			max_left = (xx - 1520)*-1;
+		this.total_width_cont = xx;
+		if(xx > width_mask) {
+			max_left = (xx - width_mask)*-1;
 		}
 	}
 

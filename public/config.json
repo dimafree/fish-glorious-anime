@@ -28,6 +28,34 @@
       {"id":  7,
         "src": "games/pic1.png",
         "size": "big"
+      },
+      {"id":  8,
+        "src": "games/pic1.png",
+        "size": "big"
+      },
+      {"id":  9,
+        "src": "games/pic2.png",
+        "size": "big"
+      },
+      {"id":  10,
+        "src": "games/pic1.png",
+        "size": "small"
+      },
+      {"id":  11,
+        "src": "games/pic2.png",
+        "size": "small"
+      },
+      {"id":  12,
+        "src": "games/pic1.png",
+        "size": "small"
+      },
+      {"id":  13,
+        "src": "games/pic2.png",
+        "size": "small"
+      },
+      {"id":  14,
+        "src": "games/pic1.png",
+        "size": "big"
       }
     ],
     "part2": [
