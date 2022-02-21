@@ -5,8 +5,45 @@ import {EE} from "../Game";
 
 export class Resources extends PIXI.Sprite{
 	cont:PIXI.Sprite;
+	bal:PIXI.Sprite;
+	txt5:PIXI.Sprite;
 	constructor() {
 		super();
+		const styletext = new PIXI.TextStyle({
+			fontFamily: "Patua One",
+			fontSize: "52px",
+			fill: "0xffffff",
+			"lineJoin": "round",
+			"stroke": "#405563",
+			"strokeThickness": 5,
+		});
+
+		const styletext2 = new PIXI.TextStyle({
+			fontFamily: "Patua One",
+			fontSize: "52px",
+			fill: "0xF8EAC4",
+			"lineJoin": "round",
+			"stroke": "#405563",
+			"strokeThickness": 5,
+		});
+
+		const styletext3 = new PIXI.TextStyle({
+			fontFamily: "Patua One",
+			fontSize: "52px",
+			fill: "0xFEF3F0",
+			"lineJoin": "round",
+			"stroke": "#405563",
+			"strokeThickness": 5,
+		});
+
+		const styletext4 = new PIXI.TextStyle({
+			fontFamily: "Patua One",
+			fontSize: "52px",
+			fill: "0xffffff",
+			"lineJoin": "round",
+			"stroke": "#405563",
+			"strokeThickness": 5,
+		});
 		//
 		this.onResize = this.onResize.bind(this);
 		EE.addListener("RESIZE", this.onResize);
@@ -52,46 +89,10 @@ export class Resources extends PIXI.Sprite{
 		animframe4.x = 1541;
 		animframe4.y = 56;
 
-		const bal = this.addChild(new PIXI.Sprite(PIXI.Texture.from("images/balance.png")));
-		bal.x = 125;
-		bal.y = 980;
+		this.bal = this.addChild(new PIXI.Sprite(PIXI.Texture.from("images/balance.png")));
+		this.bal.x = 125;
+		this.bal.y = 980;
 		//
-		const styletext = new PIXI.TextStyle({
-			fontFamily: "Patua One",
-			fontSize: "52px",
-			fill: "0xffffff",
-			"lineJoin": "round",
-			"stroke": "#405563",
-			"strokeThickness": 5,
-		});
-
-		const styletext2 = new PIXI.TextStyle({
-			fontFamily: "Patua One",
-			fontSize: "52px",
-			fill: "0xF8EAC4",
-			"lineJoin": "round",
-			"stroke": "#405563",
-			"strokeThickness": 5,
-		});
-
-		const styletext3 = new PIXI.TextStyle({
-			fontFamily: "Patua One",
-			fontSize: "52px",
-			fill: "0xFEF3F0",
-			"lineJoin": "round",
-			"stroke": "#405563",
-			"strokeThickness": 5,
-		});
-
-		const styletext4 = new PIXI.TextStyle({
-			fontFamily: "Patua One",
-			fontSize: "52px",
-			fill: "0xffffff",
-			"lineJoin": "round",
-			"stroke": "#405563",
-			"strokeThickness": 5,
-		});
-
 
 		const txt = this.cont.addChild(new PIXI.Text("123456789", styletext));
 		txt.x = 450;
@@ -109,13 +110,20 @@ export class Resources extends PIXI.Sprite{
 		txt4.x = 1600;
 		txt4.y = 75;
 
-		const txt5 = this.addChild(new PIXI.Text("999999.99", styletext4));
-		txt5.x = 300;
-		txt5.y = 985;
+		this.txt5 = this.addChild(new PIXI.Text("999999.99", styletext4));
+		this.txt5.x = 300;
+		this.txt5.y = 985;
 	}
 
 	onResize(data:any) {
 		this.cont.x = Math.max((data.w/data.scale) - 1920, 0);
+		//
+		const hght = (data.h/data.scale);
+		//
+		let yy_b = hght - 100;
+		if(yy_b<980) yy_b = 980;
+		this.bal.y = yy_b;
+		this.txt5.y = this.bal.y + 5;
 	}
 
 

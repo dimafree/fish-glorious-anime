@@ -1,6 +1,8 @@
 import * as PIXI from "pixi.js";
 import {GameItemType} from "../../common/types";
 import {imagesLoader} from "../../common/Utils";
+import {HotTag} from "./HotTag";
+import {NewTag} from "./NewTag";
 
 export class Icon2 extends PIXI.Sprite{
 	cont:PIXI.Sprite;
@@ -35,9 +37,19 @@ export class Icon2 extends PIXI.Sprite{
 		this.cont.addChild(animate0);
 		animate0.play();
 		//
-		const hot = this.cont.addChild(new PIXI.Sprite(PIXI.Texture.from("images/hot.png")));
+		/*const hot = this.cont.addChild(new PIXI.Sprite(PIXI.Texture.from("images/hot.png")));
 		hot.x = -5;
-		hot.y = -5;
+		hot.y = -5;*/
+		if(data.tag==="hot") {
+			const hot = this.cont.addChild(new HotTag());
+			hot.x = -20;
+			hot.y = -20;
+		}
+		if(data.tag==="new") {
+			const newicon = this.cont.addChild(new NewTag());
+			newicon.x = -20;
+			newicon.y = -20;
+		}
 		//
 		const star = this.cont.addChild(new PIXI.Sprite(PIXI.Texture.from("images/star.png")));
 		star.x = 310;

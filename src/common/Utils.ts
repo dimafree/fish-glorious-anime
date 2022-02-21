@@ -42,6 +42,8 @@ export async function loadJsonData(): Promise<[]> {
 			imagesLoader.add("images/anim/colorframe4/res2.json");
 			imagesLoader.add("images/anim/a1.json");
 			imagesLoader.add("images/anim/a2.json");
+			imagesLoader.add("images/anim/hot3.json");
+			imagesLoader.add("images/anim/new.json");
 
 			const data = (resources as any).items.data.games;
 			if (data) {
@@ -50,19 +52,19 @@ export async function loadJsonData(): Promise<[]> {
 				const part3 = data.part3;
 				let i=0;
 				for (const item of part1) {
-					Games.push({ part: "1", img: 'game1'+i, id: item.id, size: item.size });
+					Games.push({ part: "1", img: 'game1'+i, id: item.id, size: item.size, tag: item.tag });
 					imagesLoader.add('game1'+i, item.src);
 					i++;
 				}
 				i=0;
 				for (const item of part2) {
-					Games.push({ part: "2", img: 'game2'+i, id: item.id, size: item.size });
+					Games.push({ part: "2", img: 'game2'+i, id: item.id, size: item.size, tag: item.tag });
 					imagesLoader.add('game2'+i, item.src);
 					i++;
 				}
 				i=0;
 				for (const item of part3) {
-					Games.push({ part: "3", img: 'game3'+i, id: item.id, size: item.size });
+					Games.push({ part: "3", img: 'game3'+i, id: item.id, size: item.size, tag: item.tag });
 					imagesLoader.add('game3'+i, item.src);
 					i++;
 				}

@@ -46,9 +46,12 @@ export class HubIcons extends PIXI.Sprite{
 
 	onResize(data:any) {
 		this.cont.x = 0;
-		//width_mask = (data.w/data.scale) - 400;
 		this.msk.width = (data.w/data.scale) - 400;
-		//max_left = (this.cont.getBounds().width)*-1;
+		//
+		let hght = (data.h/data.scale);
+		let yy = (hght - 1080)/2;
+		if(yy<0) yy = 0;
+		this.headcont.y = yy;
 	}
 
 	onDragStart(e:any)

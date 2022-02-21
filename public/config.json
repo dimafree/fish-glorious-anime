@@ -3,43 +3,53 @@
     "part1": [
       {"id":  1,
         "src": "games/pic1.png",
-        "size": "big"
+        "size": "big",
+        "tag": "hot"
       },
       {"id":  2,
         "src": "games/pic2.png",
-        "size": "big"
+        "size": "big",
+        "tag": "new"
       },
       {"id":  3,
         "src": "games/pic1.png",
-        "size": "small"
+        "size": "small",
+        "tag": "new"
       },
       {"id":  4,
         "src": "games/pic2.png",
-        "size": "small"
+        "size": "small",
+        "tag": "hot"
       },
       {"id":  5,
         "src": "games/pic1.png",
-        "size": "small"
+        "size": "small",
+        "tag": "hot"
       },
       {"id":  6,
         "src": "games/pic2.png",
-        "size": "small"
+        "size": "small",
+        "tag": "new"
       },
       {"id":  7,
         "src": "games/pic1.png",
-        "size": "big"
+        "size": "big",
+        "tag": "new"
       },
       {"id":  8,
         "src": "games/pic1.png",
-        "size": "big"
+        "size": "big",
+        "tag": "new"
       },
       {"id":  9,
         "src": "games/pic2.png",
-        "size": "big"
+        "size": "big",
+        "tag": "hot"
       },
       {"id":  10,
         "src": "games/pic1.png",
-        "size": "small"
+        "size": "small",
+        "tag": "new"
       },
       {"id":  11,
         "src": "games/pic2.png",
@@ -55,17 +65,20 @@
       },
       {"id":  14,
         "src": "games/pic1.png",
-        "size": "big"
+        "size": "big",
+        "tag": "hot"
       }
     ],
     "part2": [
       {"id":  1,
         "src": "games/pic1.png",
-        "size": "small"
+        "size": "small",
+        "tag": "hot"
       },
       {"id":  2,
         "src": "games/pic2.png",
-        "size": "small"
+        "size": "small",
+        "tag": "hot"
       },
       {"id":  3,
         "src": "games/pic1.png",
@@ -91,11 +104,13 @@
     "part3": [
       {"id":  1,
         "src": "games/pic1.png",
-        "size": "big"
+        "size": "big",
+        "tag": "new"
       },
       {"id":  2,
         "src": "games/pic2.png",
-        "size": "big"
+        "size": "big",
+        "tag": "new"
       },
       {"id":  3,
         "src": "games/pic1.png",

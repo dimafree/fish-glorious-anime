@@ -8,10 +8,13 @@ export class Panels extends PIXI.Sprite{
 	l2:PIXI.Sprite;
 	r2:PIXI.Sprite;
 	back:PIXI.Sprite;
+	back1:PIXI.Sprite;
+	back2:PIXI.Sprite;
 	cont1:PIXI.Sprite;
 	cont2:PIXI.Sprite;
 	cont1mask:PIXI.Graphics;
 	cont2mask:PIXI.Graphics;
+	defaultY:number = 964;
 
 	constructor() {
 		super();
@@ -22,11 +25,11 @@ export class Panels extends PIXI.Sprite{
 		this.round2Animation = this.round2Animation.bind(this);
 		this.onResize = this.onResize.bind(this);
 		EE.addListener("RESIZE", this.onResize);
-
-		this.back = this.addChild(new PIXI.Sprite(PIXI.Texture.from("images/panels.png")));
+		this.back = this.addChild(new PIXI.Sprite());
+		this.back1 = this.back.addChild(new PIXI.Sprite(PIXI.Texture.from("images/panel1.png")));
+		this.back2 = this.back.addChild(new PIXI.Sprite(PIXI.Texture.from("images/panel2.png")));
 		this.cont1 = this.addChild(new PIXI.Sprite());
 		this.cont2 = this.addChild(new PIXI.Sprite());
-		this.cont2.y = 964;
 
 		this.r1 = this.cont1.addChild(new PIXI.Sprite(PIXI.Texture.from("images/rounds1.png")));
 		this.l1 = this.cont1.addChild(new PIXI.Sprite(PIXI.Texture.from("images/line.png")));
@@ -41,7 +44,9 @@ export class Panels extends PIXI.Sprite{
 		this.cont1mask = this.addChild(new PIXI.Graphics());
 		this.cont1mask.beginFill(0xff00ff, 1).drawRect(0, 0, 1920, 116).endFill();
 		this.cont2mask = this.addChild(new PIXI.Graphics());
-		this.cont2mask.beginFill(0xff00ff, 1).drawRect(0, 964, 1920, 116).endFill();
+		this.cont2mask.beginFill(0xff00ff, 1).drawRect(0, 0, 1920, 116).endFill();
+
+		this.cont2.y = this.cont2mask.y = this.back2.y = this.defaultY;
 
 		this.cont1.mask = this.cont1mask;
 		this.cont2.mask = this.cont2mask;
@@ -50,6 +55,10 @@ export class Panels extends PIXI.Sprite{
 	onResize(data:any) {
 		this.back.width = this.cont1mask.width = this.cont2mask.width = (data.w/data.scale);
 		this.cont1.x = this.cont2.x = (this.back.width - 1920)/2;
+		//
+		let yy = (data.h/data.scale) - 116;
+		if(yy<this.defaultY) yy = this.defaultY;
+		this.cont2.y = this.cont2mask.y = this.back2.y = yy;
 	}
 
 	line2Animation() {
@@ -66,7 +75,7 @@ export class Panels extends PIXI.Sprite{
 		this.r1.x = -39;
 		this.r1.y = -12;
 		gsap.to(this.r1, {
-			duration: 1,
+			duration: 5,
 			x: -83,
 			y: -135,
 			ease: "none",
@@ -78,7 +87,7 @@ export class Panels extends PIXI.Sprite{
 		this.r2.x = -39;
 		this.r2.y = -12;
 		gsap.to(this.r2, {
-			duration: 1,
+			duration: 5,
 			x: -83,
 			y: -135,
 			ease: "none",

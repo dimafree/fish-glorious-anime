@@ -9,13 +9,14 @@ export class Background extends PIXI.Sprite{
 	//fon2mask:PIXI.Graphics;
 	cont:PIXI.Sprite;
 	back2:PIXI.Sprite;
+	back1:PIXI.Sprite;
 	constructor() {
 		super();
 		//
 		this.onResize = this.onResize.bind(this);
 		EE.addListener("RESIZE", this.onResize);
 		this.cont = this.addChild(new PIXI.Sprite());
-		this.cont.addChild(new PIXI.Sprite(PIXI.Texture.from("images/back.jpg")));
+		this.back1 = this.cont.addChild(new PIXI.Sprite(PIXI.Texture.from("images/back.jpg")));
 		this.back2 = this.cont.addChild(new PIXI.Sprite(PIXI.Texture.from("images/back2.png")));
 
 		//this.cont.addChild(new Light1());
@@ -28,6 +29,7 @@ export class Background extends PIXI.Sprite{
 
 	onResize(data:any) {
 		this.back2.x = (data.w/data.scale) - 1920;
+		this.back1.scale.y = this.back2.scale.y = (data.h/data.scale)/1080;
 	}
 
 
